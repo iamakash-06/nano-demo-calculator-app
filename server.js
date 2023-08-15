@@ -18,8 +18,8 @@ baseRouter.post('/add', (req, res) => {
     if (isNan(first) || isNaN(seocond)) {
         return res.status(400).json({ error: "Both 'first' and 'second' numbers are required." });
     }
-    const resu = first + seocond;
-    res.json({result: resu});
+    const result = first + seocond;
+    res.json({result: result});
 });
 
 
@@ -28,8 +28,8 @@ baseRouter.post('/subtract', (req, res) => {
     if (isNan(first) || isNaN(seocond)) {
         return res.status(400).json({ error: "Both 'first' and 'second' numbers are required." });
     }
-    const resu = first - seocond;
-    res.json({result: resu});
+    const result = first - seocond;
+    res.json({result: result});
 });
 
 app.use(baseUrl, baseRouter);
