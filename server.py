@@ -1,33 +1,45 @@
-from flask import Flask, jsonify
-from flask import request
-import json
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+class Calculator:
+    @staticmethod
+    def add(first, second):
+        return first + second
+    
+    @staticmethod
+    def subtract(first, second):
+        return first - second
 
-@app.route("/calculator/greeting", methods=['GET'])
-def greeting():
-    return 'Hello World!', 200 
+class API:
+    @staticmethod
+    @app.route("/calculator/greeting", methods=['GET'])
+    def greeting():
+        return "Hello world!"
 
-@app.route("/calculator/add", methods=['POST'])
-def add():
-    data = request.get_json()
-    first = data.get('first')
-    second = data.get('second')
-    if first is None or second is None:
-        return jsonify(error="Both 'first' and 'second' numbers are required."), 400
-    res = first + second
-    return jsonify(result=res), 200
-
-@app.route("/calculator/subtract", methods=['POST'])
-def subtract():
-    data = request.get_json()
-    first = data.get('first')
-    second = data.get('second')
-    if first is None or second is None:
-        return jsonify(error="Both 'first' and 'second' numbers are required."), 400
-    res = first - second
-    return jsonify(result=res), 200
+    @staticmethod
+    @app.route("/calculator/add", methods=['POST'])
+    def add():
+        try:
+            data = request.get_json()
+            first = data.get('first', 0)
+            second = data.get('second', 0)
+            result = Calculator.add(first, second)
+            return jsonify({'result': result}), 200
+        except Exception as e:
+            return jsonify({'error': 'Invalid input'}), 400
+    
+    @staticmethod
+    @app.route("/calculator/subtract", methods=['POST'])
+    def subtract():
+        try:
+            data = request.get_json()
+            first = data.get('first', 0)
+            second = data.get('second', 0)
+            result = Calculator.subtract(first, second)
+            return jsonify({'result': result}), 200
+        except Exception as e:
+            return jsonify({'error': 'Invalid input'}), 400
 
 if __name__ == '__main__':
-    app.run(port=8080,host='0.0.0.0')
+    app.run(port=8080, host='0.0.0.0')
