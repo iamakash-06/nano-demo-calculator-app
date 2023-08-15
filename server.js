@@ -10,16 +10,26 @@ app.use(express.json());
 const baseRouter = express.Router();
 
 baseRouter.get('/greeting', (req, res) => {
-    return res.send('');
+    return res.send('Hello World!');
 });
 
 baseRouter.post('/add', (req, res) => {
-    res.json({ "": null });
+    const {first, seocond} = req.body;
+    if (typeof first !== 'number' || typeof seocond !== 'number') {
+        return res.status(400).json({ error: "Both 'first' and 'second' numbers are required." });
+    }
+    const res = first + seocond;
+    res.json({result: res});
 });
 
 
 baseRouter.post('/subtract', (req, res) => {
-    res.json({ "": null });
+    const {first, seocond} = req.body;
+    if (typeof first !== 'number' || typeof seocond !== 'number') {
+        return res.status(400).json({ error: "Both 'first' and 'second' numbers are required." });
+    }
+    const res = first - seocond;
+    res.json({result: res});
 });
 
 app.use(baseUrl, baseRouter);
