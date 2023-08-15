@@ -15,21 +15,21 @@ baseRouter.get('/greeting', (req, res) => {
 
 baseRouter.post('/add', (req, res) => {
     const {first, seocond} = req.body;
-    if (typeof first !== 'number' || typeof seocond !== 'number') {
+    if (isNan(first) || isNaN(seocond)) {
         return res.status(400).json({ error: "Both 'first' and 'second' numbers are required." });
     }
-    const res = first + seocond;
-    res.json({result: res});
+    const resu = first + seocond;
+    res.json({result: resu});
 });
 
 
 baseRouter.post('/subtract', (req, res) => {
     const {first, seocond} = req.body;
-    if (typeof first !== 'number' || typeof seocond !== 'number') {
+    if (isNan(first) || isNaN(seocond)) {
         return res.status(400).json({ error: "Both 'first' and 'second' numbers are required." });
     }
-    const res = first - seocond;
-    res.json({result: res});
+    const resu = first - seocond;
+    res.json({result: resu});
 });
 
 app.use(baseUrl, baseRouter);
