@@ -19,7 +19,7 @@ baseRouter.post('/add', (req, res) => {
         return res.status(400).json({ error: "Both 'first' and 'second' numbers are required." });
     }
     const result = first + seocond;
-    res.json({result: result});
+    res.status(200).json({result: result});
 });
 
 
@@ -29,7 +29,7 @@ baseRouter.post('/subtract', (req, res) => {
         return res.status(400).json({ error: "Both 'first' and 'second' numbers are required." });
     }
     const result = first - seocond;
-    res.json({result: result});
+    res.status(200).json({result: result});
 });
 
 app.use(baseUrl, baseRouter);
